@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+  </head>
+  <body>
+    <div id="content"> Content!~ </div>
+    <script type="text/babel">
+
+class Comment extends React.Component {
+  render() {
+    return (
+      <li> { this.props.text } </li>
+    )
+  }
+}
+
+class Tree extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {children:[], parent:{}}
+  }
+  addChild() {
+    var newChildren = this.state.children;
+    newChildren.push((<Tree></Tree>));
+    this.setState({children: newChildren})
+    console.log(this.state.children)
+  }
+  render() {
+    return (
+    <div>
+      <li> Tree Node  <button onClick = {() => {this.addChild()}}> NewChild</button> </li>
+      <br/>
+      <ul>
+        { this.state.children}
+      </ul>
+    </div>
+    )
+  }
+}
+
+ReactDOM.render(<Tree />, document.getElementById('content'))
